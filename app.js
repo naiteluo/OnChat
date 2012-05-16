@@ -4,7 +4,9 @@
  */
 
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , Chat = require('chat').Chat
+  , sio = require('socket.io');
 
 var app = module.exports = express.createServer();
 
@@ -35,3 +37,7 @@ app.get('*', routes.error);
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
+
+// Init chat room
+// var chat = Chat(sio.listen(app));
+// chat.start();
