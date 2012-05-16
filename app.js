@@ -6,7 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , Chat = require('./chat').Chat
-  , sio = require('socket.io');
+  , sio = require('socket.io')
 
 var app = module.exports = express.createServer();
 
@@ -39,5 +39,5 @@ app.listen(3000, function(){
 });
 
 // Init chat room
-// var chat = Chat(sio.listen(app));
-// chat.start();
+var chat = Chat(sio.listen(app));
+chat.start();
