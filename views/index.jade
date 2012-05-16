@@ -1,2 +1,38 @@
-h1= title
-p Welcome to #{title}
+header
+	h1= title
+	p Welcome to #{title}
+	div
+		form#login-form.form-inline
+			input(type='text', placeholder='昵称').input-small
+			label
+				input(type='radio', name='sex', value='male', checked='checked')
+				| 男
+			label
+				input(type='radio', name='sex', value='female')
+				| 女
+			button#login.btn 登陆
+		div#welcome
+			p
+				strong Reelin
+				| ，欢迎您
+section
+	h2 欢迎加入OnChat! :-)
+	table#logs.table
+		tr.log
+			td.name Reelin
+			td.message Hello, guys!
+section
+	div
+		textarea.chat-input
+		button.btn.btn-primary 发送
+section
+	h2 在线用户
+	div
+		ul#users
+			li.user Reelin
+			li.user Naiteluo
+			li.user Wanzi
+footer
+	p
+		img(src='/images/slogo.png')
+		| OnChat by n rl ly
