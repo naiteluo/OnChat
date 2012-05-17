@@ -84,12 +84,15 @@ var _CR = {
 					// handle CHAT msg
 					this.on(CR.TYPE.CHAT, function (data) {
 						var html = '<tr class="log">' + 
-							'<td class="name">' + 
+							'<td class="name ' + 
+							((_this.name && _this.name == data.from) ? 'me' : 'others') + 
+							'">' + 
 							((_this.name && _this.name == data.from) ? '我' : data.from) +
 							'</td><td class="message">' +
 							data.msg +
 							'</td></tr>';
-						$(html).appendTo($('#logs')).show();
+						$(html).appendTo($('#logs tbody')).show();
+						autoScroll();
 					});
 					// handle NOTICE and ERROR
 					this.on(CR.TYPE.NOTICE, function (data) {
@@ -99,7 +102,8 @@ var _CR = {
 							'</td><td class="message">' +
 							data.msg +
 							'</td></tr>';
-						$(html).appendTo($('#logs')).show();
+						$(html).appendTo($('#logs tbody')).show();
+						autoScroll();
 					});
 					this.on(CR.TYPE.ERROR, function (data) {
 						var html = '<tr class="log error">' + 
@@ -108,8 +112,10 @@ var _CR = {
 							'</td><td class="message">' +
 							data.msg +
 							'</td></tr>';
-						$(html).appendTo($('#logs')).show();
+						$(html).appendTo($('#logs tbody')).show();
+						autoScroll();
 					});
+
 				},
 				setListListener: function () {
 					var _this = this;
@@ -149,10 +155,3 @@ var _CR = {
 		CR.start(server);
 	}
 };
-
-$(function () {
-	var server = document.location.origin;
-	$('form').submit(false);
-	$('#welcome').hide();
-	_CR.init(server);
-})
