@@ -1,31 +1,44 @@
-header
-	h1= title
-	p Welcome to #{title}
-	div
-		form#login-form.form-inline
-			input(type='text', name='name', placeholder='昵称').input-small
-			label
-				input(type='radio', name='sex', value='male', checked='checked')
-				| 男
-			label
-				input(type='radio', name='sex', value='female')
-				| 女
-			button#login.btn 登陆
-		div#welcome
-			p
-				strong Reelin
-				| ，欢迎您
-section
-	h2 欢迎加入OnChat! :-)
-	table#logs.table
-section
-	div
-		textarea#chat-input
-		button#send.btn.btn-primary 发送
-section
-	h2 在线用户
-	div
-		ul#users
+div#wrapper
+	header
+		img(src='images/logo.png')
+		div
+			form#login-form.form-inline
+				input(type='text', name='name', placeholder='昵称').input-small
+				label
+					input(type='radio', name='sex', value='male', checked='checked')
+					| 男
+				label
+					input(type='radio', name='sex', value='female')
+					| 女
+				button#login.btn 登陆
+			div#welcome
+				p
+					strong Reelin
+					| ，欢迎您
+	div#describe
+		img#roimg(src='images/de.png')
+		p 随心所欲，畅所欲言
+		ol
+			li 输入你的昵称
+			li 选择性别
+			li 点击登陆，开始聊天～
+	div#container
+		div.span-8
+			section#chat
+				h2 欢迎加入OnChat! :-)
+				table#logs.table
+					tbody
+			section#chat-footer-input
+				textarea#chat-input
+				|  
+				button#send.btn.btn-primary 发送
+		div.span-4
+			section#online
+				h2 
+					i.icon-user
+					| 在线用户
+				div
+					ul#users
 footer
 	p
 		img(src='/images/slogo.png')

@@ -1,8 +1,194 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-image: url("../images/main.png");
+	margin: 0 auto;
+	width: 1002px;
 }
 
-a {
-  color: #00B7FF;
+/* header and chat-room */
+#wrapper {
+	border: 1px solid #aaa;
+	border-radius: 1em;
+	margin-top: 20px;
+	background: #4d78b4;
+	box-shadow: 3px 3px 6px #aaa;
+}
+
+/* header style */
+header {
+	margin: 0;
+	overflow: hidden;
+	background: url("../images/bg1.png") repeat-x left bottom;
+}
+
+header img {
+	margin-left: 10px;
+	margin-top: 15px;
+}
+header div{
+	padding-top: 15px;
+	padding-right: 15px;
+	float: right;
+	display: inline-block;
+}
+
+header #welcome {
+	display: none;
+}
+
+#login-form label {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#login-form input[type='radio'] {
+	padding-top: 7px;
+}
+
+/* img and desicribe */ 
+#describe {
+	overflow: hidden;
+	border-bottom: 1px dotted #ddd;
+	background: #F5F5F5;
+}
+
+#describe img {
+	width: 140px;
+	margin-left: 150px;
+	float: left;
+	height: 130px;
+}
+
+#describe p {
+	color: #f2a644;
+	font-family: "microsoft yahei" ;
+	font-size: 22px;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+#describe li {
+	font-family: "microsoft yahei";
+	margin-left: 550px;
+}
+
+/* contain style */
+#container {
+	overflow: hidden;
+	padding: 40px 0;
+	background: #F5F5F5;
+}
+
+#container .span-8 {
+	width: 600px;
+	margin-left: 40px;
+}
+
+#container .span-4 {
+	width: 280px;
+	margin-left: 40px;
+}
+
+/* chat room style */ 
+.span-8 #chat {
+    padding: 5px;
+	border: 2px solid #CCC;
+	border-radius: 1.5em;
+	background: #fff;
+	width: 586px;
+}
+
+/* user's dialogue */
+.span-8 .table{
+	display: block;
+	padding: 10px;
+	height: 350px;
+	width: 565px;
+	font-size: 15px;
+	overflow-y: scroll;
+}
+
+.span-8 .table td, .span-8 .table th {
+	border: none;
+}
+
+.span-8 .name {
+	text-align: right;
+	padding-right: 7px;
+	color: #0a367d;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+/* login user */
+.span-8 .log .me {
+	color: #f2a644;
+}
+
+.span-8 .error .message{
+	color: red;
+}
+
+.span-8 .notice .message{
+	color: green;
+}
+/* chat input  */
+.span-8 #chat-footer-input {
+	margin-top: 15px;
+}
+
+.span-8 #chat-input {
+	width: 535px;
+	height: 30px;
+}
+
+.span-8 #chat-footer-input button#send {
+	padding: 10px;
+}
+
+/* online user style */
+.span-4 #online {
+	width: 268px;
+	height: 480px;
+	padding: 5px;
+	border: 2px solid #629fd5;
+	border-radius: 1.5em;
+	background: url("../images/flower.png") no-repeat right bottom;
+}
+
+/* both chat-room and online user title */
+h2 {
+	color: #629fd5;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 10px;
+	border-bottom: 2px solid #629fd5;
+}
+
+/* online user name */
+.span-4 ul {
+	list-style: none;
+	margin: 0px;
+	padding: 10px;
+}
+
+.span-4 li {
+	font-size: 13px;
+	font-weight: bold;
+	margin: 5px;
+	padding-left: 18px;
+}
+
+.span-4 li.male {
+	background: url("../images/male1.png") no-repeat;
+}
+
+.span-4 li.female {
+	background: url("../images/female1.png") no-repeat;
+}
+/* footer style */
+footer {
+	padding: 20px;
+	text-align: center;
 }
