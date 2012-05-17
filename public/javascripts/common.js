@@ -18,6 +18,9 @@ function at() {
 	$(".user").live('click', function () {
 		$("#chat-input").val($("#chat-input").val() + "@" + $(this).html() + " " );
 	});
+	$(".name").live('click', function () {
+		$("#chat-input").val($("#chat-input").val() + "@" + $(this).html() + " " );
+	});
 }
 
 function autoScroll() {
