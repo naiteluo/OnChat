@@ -10,12 +10,12 @@ exports.Chat = function (io) {
 	CR.io = io;
 
 	CR.TYPE = {
-		CHAT: '0',
-		SYSTEM: '1',
-		LOGIN: '2',
-		LIST: '3',
-		ERROR: '4',
-		NOTICE: '5'
+		CHAT: 'chat',
+		SYSTEM: 'system',
+		LOGIN: 'login',
+		LIST: 'list',
+		ERROR: 'error',
+		NOTICE: 'notice'
 	};
 
 	/*
@@ -37,6 +37,9 @@ exports.Chat = function (io) {
 				user.setLoginListener(_this);
 				user.setMsgListener(_this);
 				user.setLogoutListener(_this);
+				user.send(CR.TYPE.NOTICE, {
+					msg: '已连接服务器'
+				});
 
 			});
 		},
@@ -75,10 +78,11 @@ exports.Chat = function (io) {
 		setLoginListener: function (room) {
 			var _this = this;
 			this.on(CR.TYPE.LOGIN, function (data) {
+				console.log('LOGIN request recv');
 				if(room.validateLogin(data.name, data.sex)) {
 					_this.name = data.name;
 					_this.sex = data.sex;
-					_this.broadcast(CR.TYPE.NOTICE, {
+					_this.send(CR.TYPE.NOTICE, {
 						msg: _this.name + '已上线'
 					});
 					room.addUser(_this);
@@ -91,7 +95,11 @@ exports.Chat = function (io) {
 		},
 		setMsgListener: function (room) {
 			var _this = this;
-			this.on('msg')
+			this.on(CR.TYPE.CHAT, function (data) {
+				// data of chat msg may be as follow:
+				// {from: 'xxx', msg: 'xsdfasf'}
+				room.send(CR.TYPE.CHAT, data);
+			})
 		},
 		setLogoutListener: function (room) {
 			var _this = this;
