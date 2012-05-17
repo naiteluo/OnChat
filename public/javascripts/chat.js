@@ -46,6 +46,17 @@ var _CR = {
 								name: name,
 								sex: sex
 							});
+							// login result
+							_this.on(CR.TYPE.LOGIN, function (data) {
+								if(data.success) {
+									_this.name = name;
+									_this.sex = sex;
+									_this.isLogined = true;
+									$('#login-form').hide();
+									$('#welcome p strong').html(_this.name);
+									$('#welcome').show();
+								}
+							})
 						} else {
 							alert("用户名、性别输入有误！");
 						}
@@ -53,6 +64,22 @@ var _CR = {
 				},
 				setMsgListener: function () {
 					var _this = this;
+					// send msg listener
+
+					$('#send').bind('click', function () {
+						if(!_this.isLogined) {
+							// _this.addLog();
+							alert('请先登陆!');
+							return;
+						}
+						if($('#chat-input').val().length > 0) {
+							_this.send(CR.TYPE.CHAT, {
+								from: _this.name,
+								msg: $('#chat-input').val()
+							});
+							$('#chat-input').val('');
+						}
+					});
 					// handle CHAT msg
 					this.on(CR.TYPE.CHAT, function (data) {
 						var html = '<tr class="log">' + 
@@ -125,5 +152,6 @@ var _CR = {
 $(function () {
 	var server = document.location.origin;
 	$('form').submit(false);
+	$('#welcome').hide();
 	_CR.init(server);
 })

@@ -6,7 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , Chat = require('./chat').Chat
-  , sio = require('socket.io')
+  , sio = require('socket.io');
 
 var app = module.exports = express.createServer();
 

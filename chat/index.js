@@ -50,7 +50,10 @@ exports.Chat = function (io) {
 			return true;
 		},
 		addUser: function (user) {
-			this.users[user.name] = user;
+			this.users[user.name] = {
+				name: user.name,
+				sex: user.sex
+			};
 		},
 		updateList: function () {
 			this.send(CR.TYPE.LIST, {
@@ -82,10 +85,18 @@ exports.Chat = function (io) {
 				if(room.validateLogin(data.name, data.sex)) {
 					_this.name = data.name;
 					_this.sex = data.sex;
-					_this.send(CR.TYPE.NOTICE, {
+					_this.isLogined = true;
+					_this.broadcast(CR.TYPE.NOTICE, {
 						msg: _this.name + '已上线'
 					});
+					_this.send(CR.TYPE.LOGIN, {
+						success: true
+					});
+					_this.send(CR.TYPE.NOTICE, {
+						msg: '登陆成功，欢迎您'
+					})
 					room.addUser(_this);
+					room.updateList();
 				} else {
 					_this.send(CR.TYPE.ERROR, {
 						msg: '昵称已被占用'
@@ -104,10 +115,13 @@ exports.Chat = function (io) {
 		setLogoutListener: function (room) {
 			var _this = this;
 			this.on('disconnect', function () {
-				room.send(CR.TYPE.NOTICE, {
-					msg: _this.name + '已下线'
-				});
-				delete room.users[this.name];
+				if(_this.isLogined) {
+					room.send(CR.TYPE.NOTICE, {
+						msg: _this.name + '已下线'
+					});
+					delete room.users[_this.name];
+				}
+				room.updateList();
 				// delete this;
 			});
 		},
