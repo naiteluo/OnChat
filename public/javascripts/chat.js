@@ -40,7 +40,7 @@ var _CR = {
 					var _this = this;
 					$('#login').bind('click', function () {
 						var name = $('input[name="name"]').val();
-						var sex = $('input[name="sex"]').val();
+						var sex = $('input[name="sex"]:checked').val();
 						if(_this.validateLogin(name, sex)) {
 							_this.send(CR.TYPE.LOGIN, {
 								name: name,
@@ -53,6 +53,7 @@ var _CR = {
 									_this.sex = sex;
 									_this.isLogined = true;
 									$('#login-form').hide();
+									$('#describe').hide();
 									$('#welcome p strong').html(_this.name);
 									$('#welcome').show();
 								}
