@@ -1,0 +1,15 @@
+<!-- Client -->
+
+<script src="/socket.io/scoket.io.js"></script>
+<script>
+	// 初始化、建立连接
+	var socket = io.connect('http://localhost');
+	// 监听消息，调用回调函数
+	socket.on('news', function (data) {
+		console.log(data);
+		// 发送消息
+		socket.emit('my other event', {
+			my: 'data'
+		});
+	});
+</script>

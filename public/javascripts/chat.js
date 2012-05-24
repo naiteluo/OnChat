@@ -73,6 +73,7 @@ var _CR = {
 							alert('请先登陆!');
 							return;
 						}
+
 						if($('#chat-input').val().length > 0) {
 							_this.send(CR.TYPE.CHAT, {
 								from: _this.name,
