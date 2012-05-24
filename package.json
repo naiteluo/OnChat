@@ -1,13 +1,9 @@
 {
   "name": "onchat", 
   "version": "0.0.1",
-  "engines": {
-  	"node": "0.6.11",
-  	"npm": "1.1.1"
-  },
   "dependencies": {
   	"socket.io": "0.9.6",
     "express": "2.5.8",
-    "jade": "0.0.2"
+    "jade": "0.26.x"
   }
 }
