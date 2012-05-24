@@ -1,10 +1,10 @@
 {
-    "name": "application-name"
+    "name": "onchat"
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
-  		"socket.io": "0.9.6"
-      "express": "2.5.8"
-    , "jade": ">= 0.0.1"
+  		"socket.io": "0.9.x"
+      "express": "2.5.x"
+    , "jade": "0.0.x"
   }
 }
