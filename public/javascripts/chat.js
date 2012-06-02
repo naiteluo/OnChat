@@ -19,7 +19,8 @@ var _CR = {
 				LOGIN: 'login',
 				LIST: 'list',
 				ERROR: 'error',
-				NOTICE: 'notice'
+				NOTICE: 'notice',
+				CONNECTED: 'connected'
 			};
 
 			/*
@@ -32,9 +33,36 @@ var _CR = {
 			};
 			CR.User.prototype = {
 				start: function () {
+					this.setConnectionListener();
 					this.setLoginListener();
 					this.setMsgListener();
 					this.setListListener();
+				},
+				setConnectionListener: function () {
+					// Server migth not as quickly as localhost
+					var html = '<tr class="log notice">' + 
+						'<td class="name system">' + 
+						'系统消息' +
+						'</td><td class="message">' +
+						'正在连接系统，请耐心等待' +
+						'</td></tr>';
+					$(html).appendTo($('#logs tbody')).show();
+					autoScroll();
+
+					// disabled login before connected
+					$('#login').addClass('disabled');
+
+					this.on(CR.TYPE.CONNECTED, function (data) {
+						var html = '<tr class="log notice">' + 
+							'<td class="name system">' + 
+							'系统消息' + 
+							'</td><td class="message">' +
+							data.msg +
+							'</td></tr>';
+						$(html).appendTo($('#logs tbody')).show();
+						autoScroll();
+						$('#login').removeClass('disabled');
+					});
 				},
 				setLoginListener: function () {
 					var _this = this;
@@ -65,9 +93,7 @@ var _CR = {
 				},
 				setMsgListener: function () {
 					var _this = this;
-					// send msg listener
-
-					$('#send').bind('click', function () {
+					var sendMsg = function (e) {
 						if(!_this.isLogined) {
 							// _this.addLog();
 							alert('请先登陆!');
@@ -81,17 +107,26 @@ var _CR = {
 							});
 							$('#chat-input').val('');
 						}
-					});
+					};
+
+					// send msg listener
+					$('#chat-input').keydown(function (e) {
+						var key = (e.keyCode) || (e.which) || (e.charCode);
+						if (key == 13)
+							sendMsg();
+					})
+					$('#send').bind('click', sendMsg);
+
 					// handle CHAT msg
 					this.on(CR.TYPE.CHAT, function (data) {
-						if (this.isAted(data.msg)) {
+						if (_this.isAted(data)) {
 							var html = '<tr class="log">' + 
 								'<td class="name ' + 
 								((_this.name && _this.name == data.from) ? 'me' : 'others') + 
 								'">' + 
 								((_this.name && _this.name == data.from) ? '我' : data.from) +
 								'</td><td class="message">' +
-								data.msg +
+								(data.msg).replace(/ *@([\u4e00-\u9fa5A-Za-z0-9_]*) ?/g, ' <a href="#">$&</a>') +
 								'</td></tr>';
 							$(html).appendTo($('#logs tbody')).show();
 							autoScroll();
@@ -146,9 +181,15 @@ var _CR = {
 				validateLogin: function (name, sex) {
 					return name && sex &&  name.length > 2;
 				},
-				isAted: function (msg) {
-					var list = msg.match(/ *@([\u4e00-\u9fa5A-Za-z0-9_]{3, 20}) ?/g);
+				isAted: function (data) {
+					var list = (data.msg).match(/ *@([\u4e00-\u9fa5A-Za-z0-9_]*) ?/g);
+					if (data.from == this.name) {
+						return true;
+					}
+					console.log(data.msg);
+					console.log(list);
 					if (list) {
+						console.log(list);
 						for (var i = 0; i < list.length; i ++) {
 							if (list[i].indexOf(this.name) != -1) {
 								return true;

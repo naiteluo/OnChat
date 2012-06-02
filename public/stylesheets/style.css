@@ -33,6 +33,7 @@ header div{
 
 header #welcome {
 	display: none;
+	color: #fff;
 }
 
 #login-form label {

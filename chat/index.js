@@ -14,7 +14,8 @@ exports.Chat = function (io) {
 		LOGIN: 'login',
 		LIST: 'list',
 		ERROR: 'error',
-		NOTICE: 'notice'
+		NOTICE: 'notice',
+		CONNECTED: 'connected'
 	};
 
 	/*
@@ -36,7 +37,7 @@ exports.Chat = function (io) {
 				user.setLoginListener(_this);
 				user.setMsgListener(_this);
 				user.setLogoutListener(_this);
-				user.send(CR.TYPE.NOTICE, {
+				user.send(CR.TYPE.CONNECTED, {
 					msg: '已连接服务器'
 				});
 
