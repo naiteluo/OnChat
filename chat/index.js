@@ -1,7 +1,6 @@
 
-/*
+/**
  * chat module
- *
  */
 
 exports.Chat = function (io) {

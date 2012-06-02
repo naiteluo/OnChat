@@ -57,7 +57,7 @@ var _CR = {
 									$('#welcome p strong').html(_this.name);
 									$('#welcome').show();
 								}
-							})
+							});
 						} else {
 							alert("用户名、性别输入有误！");
 						}
@@ -84,16 +84,18 @@ var _CR = {
 					});
 					// handle CHAT msg
 					this.on(CR.TYPE.CHAT, function (data) {
-						var html = '<tr class="log">' + 
-							'<td class="name ' + 
-							((_this.name && _this.name == data.from) ? 'me' : 'others') + 
-							'">' + 
-							((_this.name && _this.name == data.from) ? '我' : data.from) +
-							'</td><td class="message">' +
-							data.msg +
-							'</td></tr>';
-						$(html).appendTo($('#logs tbody')).show();
-						autoScroll();
+						if (this.isAted(data.msg)) {
+							var html = '<tr class="log">' + 
+								'<td class="name ' + 
+								((_this.name && _this.name == data.from) ? 'me' : 'others') + 
+								'">' + 
+								((_this.name && _this.name == data.from) ? '我' : data.from) +
+								'</td><td class="message">' +
+								data.msg +
+								'</td></tr>';
+							$(html).appendTo($('#logs tbody')).show();
+							autoScroll();
+						}
 					});
 					// handle NOTICE and ERROR
 					this.on(CR.TYPE.NOTICE, function (data) {
@@ -143,6 +145,19 @@ var _CR = {
 				},
 				validateLogin: function (name, sex) {
 					return name && sex &&  name.length > 2;
+				},
+				isAted: function (msg) {
+					var list = msg.match(/ *@([\u4e00-\u9fa5A-Za-z0-9_]{3, 20}) ?/g);
+					if (list) {
+						for (var i = 0; i < list.length; i ++) {
+							if (list[i].indexOf(this.name) != -1) {
+								return true;
+							}
+						}
+						return false;
+					} else {
+						return true;
+					}
 				}
 			}
 		})(CR);
